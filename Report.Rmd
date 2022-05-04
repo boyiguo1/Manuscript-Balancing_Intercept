@@ -12,17 +12,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Motivation
 
-Recently, I came across @rudolph2021 who addresses the problem of controlling marginal probability of the outcome when constructing a simulation study. The authors proposed to calculate a concept called "balance intercept" to replace the "standard intercept" (i.e. the proportion of successes in the reference level). The balance intercept is roughly an adjustment to the reference level prevalence by the group sizes. This same problem is revisited by @robertson2021 proposing to calculate the the balance intercept with a numeric approximation. Nevertheless, I think both methods are a bit complicated, due to the fact that both simulations are based on a specific coding scheme of categorical variables, reference coding. [TODO: add citation] I would suggest to use the effect coding, specifically deviation coding, to construct the simulation as a simpler alternative to control the marginal probability of a binary outcome, particularly when the design of the study is balanced (i.e. equal sample size with in each group). The basis of this proposal is that the intercept term of the effect coding model (regardless the link function or parametric assumption) is the mean of the group means, which coincides with the marginal probability of a binary outcome when the groups are balanced. Hence, less calculation is needed to derive the intercept term to reach the target marginal probability. In the case of unbalanced design, we can leverage the given information, e.g., effect size, target marginal probability, and group sizes, to derive the desired intercept, i.e. (the mean of the group mean).
+Recently, I came across @rudolph2021 who addressed the problem of controlling the marginal probability of binary outcomes when constructing a simulation study. The authors proposed calculating a concept called “balance intercept” to replace the standard intercept in simulation procedures based on the reference coding scheme. The balance intercept is an adjustment to the conditional probability of the reference level of a categorical covariate. This same problem is revisited by @robertson2021 in which the balance intercept is calculated with a numeric approximation. Nevertheless, both methods require extensive calculations, and there could be a more straightforward solution.
 
-The problem of controlling marginal probability in essence is to find the conditional probability for the reference group, as all the other simulation parameters and the model degrees of freedom are considered fixed.
+I proposed an alternative simulation strategy to control the marginal probability of a binary outcome. Instead of constructing the simulation based on the reference coding scheme, we encourage using effect coding, specifically deviation coding, to construct the design matrix of categorical covariates. The theoretical basis of this proposal is that the intercept term of the effect coding model (regardless of the link function or parametric assumptions) is the mean of the group means, which coincides with the marginal probability of a binary outcome when the groups are balanced. Hence, to simulate data from balanced designs, no additional calculation is needed compared to the previous proposals. In the case of unbalanced design, it is very intuitive to adjust the simulation equations and requires minimum arithmetic calculation. (See examples below) Besides its straightforwardness, the proposed solution should not incur any knowledge burden as the effect coding is commonly introduced in introductory statistics classes. 
 
-In the rest of this report, we will show that the simulation procedures with balance and unbalanced design in \_R\_ [@R2021] with controlled marginal probability of the outcome for balanced and unbalanced design. We defer the readers who's unfamiliar with coding scheme to [\<https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/\>](https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/). The simulation strategy translates to the programming languages other than \_R\_, e.g. *SAS*, *STATA*, whose implementation are shown in this article.
+In the rest of this report, we demonstrate the simulation procedures for both balance and unbalanced design in _R_ [@R2021]. We defer the readers who are unfamiliar with the coding schemes to [https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/](https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/). The simulation strategy translates easily to other programming e.g. *SAS*, *STATA*, whose implementations are not shown in this article. 
+
 
 # Examples
 
 ## Balanced design
 
-It is very simple to control the marginal probability for balanced design when simulation is based on the effect coding. There are minimum calculation required as the intercept in an effect coding model is the grand mean, in the binary outcome case the marginal probability. Here we illustrate the process following the simple additive probability example in @rudolph2021, where the target marginal probability is 0.3, the effect size as in risk difference is 0.2, and a balanced covariates with 2 levels.
+It is very simple to control the marginal probability for balanced design when the simulation is based on the effect coding. No calculations is required as the intercept in an effect coding model is the grand mean, in the binary outcome case, the marginal probability. Here we illustrate the process following the simple additive probability example in @rudolph2021, where the target marginal probability is 0.3, the effect size as in risk difference is 0.2, and a balanced covariate with 2 levels.
 
 ```{r balanced_sim}
 set.seed(123)
@@ -57,7 +58,7 @@ mean(Y[X==0]);
 mean(Y[X==1]);
 ```
 
-For anyone who want to examine the model performance, they can use the following code.
+One can use the following code to examine data quality from the modeling perspective.
 
 ```{r balanced_sim_model, eval = F}
 summary(glm(Y~X, family = binomial(link="identity"))) # Reference coding model
@@ -66,7 +67,7 @@ summary(glm(Y~X_design_dev-1, family = binomial(link="identity"))) # Effect codi
 
 ## Unbalanced design
 
-When the groups are not balanced, the simulation with effect coding is less straightforward compared to the balanced case, mainly because the equality between intercept and grand mean doesn't hold. The intercept needs to be adjusted based on the conditional probability of one of the levels (default to the reference level in the reference coding scheme). This adjustment of intercept requires some arithmetic calculation; nevertheless, in author's biased view, the complexity is still manageable and requires less calculation than the previous proposals. We demonstrate the simulation procedure for unbalanced design with a toy example. The simulation settings are similar to the above except that we change the group ratio to 8:2 and the effect size to 0.4.
+When the groups are not balanced, the simulation with effect coding is less straightforward compared to the balanced case, mainly because the equality between intercept and grand mean doesn't hold. The intercept needs to be adjusted based on the conditional probability of one of the levels (default to the reference level in the reference coding scheme). This adjustment of intercept requires some arithmetic calculation; nevertheless, in the author's biased view, the complexity is still manageable and requires less calculation than the previous proposals. We demonstrate the simulation procedure for unbalanced design with a toy example. The simulation settings are similar to the example above except that we change the group ratio to 8:2 and the effect size to 0.4.
 
 To calculate the new intercept, we need first to establish the conditional probability for one of the levels (by default the $X=0$ level in this example). As we know that the marginal probability can be expressed
 
@@ -130,12 +131,14 @@ mean(Y[X==1]);
 # summary(glm(Y~X_design_dev-1, family = binomial(link="identity"))) # Effect coding model
 ```
 
-To note, if we ignore the group ratio change and don't adjust the intercept (for example, use the balanced-design simulation procedure without any modification), the observed marginal probability deviates from the target marginal probability and the deviation is more obvious with more extreme value of effect size and unbalanced group ratio.
+To note, if we ignore the group ratio change and don't adjust the intercept in the simulation procedure (for example, use the balanced-design simulation procedure without any modification), the observed marginal probability deviates from the target marginal probability and the deviation is more obvious with more extreme value of effect size and unbalanced group ratio.
 
 # Conclusion
 
-In this report, we propose to use effect coding scheme to address the problem of controlling marginal probability of binary outcomes. We provide preliminary evidence that the proposal works for both balanced and unbalanced designs via toy examples. Compared to the previous solutions that based on reference coding scheme, our proposed solution requires less calculation to derive analytic and numeric approximation of the balance point. Particularly, it requires modest calculation when the study design is balanced.
+In this report, we propose to use the effect coding scheme in simulations to address the problem of controlling marginal probability of binary outcomes. We provide preliminary evidence that the proposal works for both balanced and unbalanced designs via toy examples. Compared to the previous solutions that based on the reference coding scheme, our proposed solution requires less calculation than the approaches to derive analytic and numeric approximation of the balance point. Particularly, it requires modest calculation when the study design is balanced.
 
-In this report, we only consider easy simulation scenarios, i.e. binary covariates, one covariate, identify link function, to demonstrate the feasibility of this simulation strategy. We anticipate with the levels of a covariate and the number of covariates grow, the complexity of current calculation would grow. Nevertheless, we will provide a more delicate equation, particularly for the unbalanced design, to generalize for those situation. We will also conduct larger scale of simulation studies to evaluate the efficacy of the proposed solution.
+The problem of controlling marginal probability in essence is to find the conditional probability for the reference group, as all the other simulation parameters and the model degrees of freedom are considered fixed.
+
+In this report, we only consider easy simulation scenarios, i.e. binary covariates, one covariate, identify link function, to demonstrate the feasibility of this simulation strategy. We anticipate with the levels of a covariate and the number of covariates growing, the calculation complexity would grow but still be manageable.We will provide a more delicate equation, particularly for the unbalanced design, to generalize for those situation. We will also conduct larger scale of simulation studies to evaluate the efficacy of the proposed solution.
 
 # References
