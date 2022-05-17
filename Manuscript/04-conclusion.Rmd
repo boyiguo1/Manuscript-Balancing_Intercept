@@ -3,3 +3,10 @@ In this report, we propose to use the effect coding scheme in simulations to add
 The problem of controlling marginal probability in essence is to find the conditional probability for the reference group, as all the other simulation parameters and the model degrees of freedom are considered fixed.
 
 In this report, we only consider easy simulation scenarios, i.e. binary covariates, one covariate, identify link function, to demonstrate the feasibility of this simulation strategy. We anticipate with the levels of a covariate and the number of covariates growing, the calculation complexity would grow but still be manageable.We will provide a more delicate equation, particularly for the unbalanced design, to generalize for those situation. We will also conduct larger scale of simulation studies to evaluate the efficacy of the proposed solution.
+
+The reason why this is necessary
+* significantly reduces the complexity of the problem, leveraging a statistics concept covered in the introductory level statistics class
+* Require less numeric programming, which can easily produce errors for people without numeric programming background.
+The simulation strategy translates easily to other programming e.g. *SAS*, *STATA*, whose implementations are not shown in this article. 
+
+The author doesn’t arugula if analytic approach and computational approach is superior. Instead, we advocate for a balanced emphasis on both computational skills and analytic thinking. 

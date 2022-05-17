@@ -1,3 +1,8 @@
+1. Treatment of continuous variable
+2. Treatment of categorical variables
+3. Generalizability of the approach
+
+
 ## Balanced design
 
 It is very simple to control the marginal probability for balanced design when the simulation is based on the effect coding. No calculations is required as the intercept in an effect coding model is the grand mean, in the binary outcome case, the marginal probability. Here we illustrate the process following the simple additive probability example in @rudolph2021, where the target marginal probability is 0.3, the effect size as in risk difference is 0.2, and a balanced covariate with 2 levels.

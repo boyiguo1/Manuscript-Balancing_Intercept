@@ -1,7 +1,7 @@
 ---
-title: "Use Effect Coding to Control Marginal Probability in Simulations"
+title: "Lean on your statistics: the simplification of the balance intercept problem"
 output: pdf_document
-author: "Boyi Guo"
+author: "Boyi Guo, Jacqueline Rudolph"
 date: "`r Sys.Date()`"
 bibliography: references.bib
 ---
