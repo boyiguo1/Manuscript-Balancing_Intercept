@@ -8,6 +8,10 @@ bibliography: references.bib
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(targets)
+
+
+tar_load(manu_files)
 ```
 
 # Motivation

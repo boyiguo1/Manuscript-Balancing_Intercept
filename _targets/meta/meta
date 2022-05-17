@@ -1,0 +1,5 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+manu|stem|05b337ccbccb6473|2877213243452a0a|40c3e6f083044508|-985599464|Manuscript/effect_coding_intercept.pdf*Manuscript/Report.Rmd|t19129.0600095528s|862fc544c33ae81f|231103|file|local|vector|||3.351||
+manu_files|pattern|f6c9ef7280a0bdd2|4ffe3b070be43b2d||1330441897||||1177|file|local|vector||manu_files_375637b7|0||
+manu_files_375637b7|branch|acfc73a40bae501e|4ffe3b070be43b2d|7ac4b8bf88689c9a|-1315186423|Manuscript/references.bib|t19114.6028736994s|2cf6c94c1716fa11|1177|file|local|vector|manu_files||0||
+manu_files_files|stem|d56aefdc5d0a1f01|58c54eeae24659ea|a3dad144c40657ed|-1994434977||t19129.0599704612s|c852eab37a726e04|78|rds|local|vector||manu_files_files_71be117e|0.023|package rticles was built under R version 4.1.2|
