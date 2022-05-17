@@ -1,30 +1,3 @@
----
-title: "Use Effect Coding to Control Marginal Probability in Simulations"
-output: pdf_document
-author: "Boyi Guo"
-date: "`r Sys.Date()`"
-bibliography: references.bib
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(targets)
-
-
-tar_load(manu_files)
-```
-
-# Motivation
-
-Recently, I came across @rudolph2021 who addressed the problem of controlling the marginal probability of binary outcomes when constructing a simulation study. The authors proposed calculating a concept called “balance intercept” to replace the standard intercept in simulation procedures based on the reference coding scheme. The balance intercept is an adjustment to the conditional probability of the reference level of a categorical covariate. This same problem is revisited by @robertson2021 in which the balance intercept is calculated with a numeric approximation. Nevertheless, both methods require extensive calculations, and there could be a more straightforward solution.
-
-I proposed an alternative simulation strategy to control the marginal probability of a binary outcome. Instead of constructing the simulation based on the reference coding scheme, we encourage using effect coding, specifically deviation coding, to construct the design matrix of categorical covariates. The theoretical basis of this proposal is that the intercept term of the effect coding model (regardless of the link function or parametric assumptions) is the mean of the group means, which coincides with the marginal probability of a binary outcome when the groups are balanced. Hence, to simulate data from balanced designs, no additional calculation is needed compared to the previous proposals. In the case of unbalanced design, it is very intuitive to adjust the simulation equations and requires minimum arithmetic calculation. (See examples below) Besides its straightforwardness, the proposed solution should not incur any knowledge burden as the effect coding is commonly introduced in introductory statistics classes. 
-
-In the rest of this report, we demonstrate the simulation procedures for both balance and unbalanced design in _R_ [@R2021]. We defer the readers who are unfamiliar with the coding schemes to [https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/](https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/). The simulation strategy translates easily to other programming e.g. *SAS*, *STATA*, whose implementations are not shown in this article. 
-
-
-# Examples
-
 ## Balanced design
 
 It is very simple to control the marginal probability for balanced design when the simulation is based on the effect coding. No calculations is required as the intercept in an effect coding model is the grand mean, in the binary outcome case, the marginal probability. Here we illustrate the process following the simple additive probability example in @rudolph2021, where the target marginal probability is 0.3, the effect size as in risk difference is 0.2, and a balanced covariate with 2 levels.
@@ -136,13 +109,3 @@ mean(Y[X==1]);
 ```
 
 To note, if we ignore the group ratio change and don't adjust the intercept in the simulation procedure (for example, use the balanced-design simulation procedure without any modification), the observed marginal probability deviates from the target marginal probability and the deviation is more obvious with more extreme value of effect size and unbalanced group ratio.
-
-# Conclusion
-
-In this report, we propose to use the effect coding scheme in simulations to address the problem of controlling marginal probability of binary outcomes. We provide preliminary evidence that the proposal works for both balanced and unbalanced designs via toy examples. Compared to the previous solutions that based on the reference coding scheme, our proposed solution requires less calculation than the approaches to derive analytic and numeric approximation of the balance point. Particularly, it requires modest calculation when the study design is balanced.
-
-The problem of controlling marginal probability in essence is to find the conditional probability for the reference group, as all the other simulation parameters and the model degrees of freedom are considered fixed.
-
-In this report, we only consider easy simulation scenarios, i.e. binary covariates, one covariate, identify link function, to demonstrate the feasibility of this simulation strategy. We anticipate with the levels of a covariate and the number of covariates growing, the calculation complexity would grow but still be manageable.We will provide a more delicate equation, particularly for the unbalanced design, to generalize for those situation. We will also conduct larger scale of simulation studies to evaluate the efficacy of the proposed solution.
-
-# References

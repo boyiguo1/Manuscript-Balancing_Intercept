@@ -1,0 +1,31 @@
+---
+title: "Use Effect Coding to Control Marginal Probability in Simulations"
+output: pdf_document
+author: "Boyi Guo"
+date: "`r Sys.Date()`"
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(targets)
+
+tar_load(manu_files)
+```
+# Introduction
+```{r child = manu_files[[1]]}
+```
+
+# Effect Coding Primer
+```{r child = manu_files[[2]]}
+```
+
+# Balance Intercept of effect Coding
+```{r child = manu_files[[3]]}
+```
+
+# Conclusion
+```{r child = manu_files[[4]]}
+```
+
+# References
