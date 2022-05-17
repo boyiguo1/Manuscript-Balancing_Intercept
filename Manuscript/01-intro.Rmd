@@ -8,9 +8,13 @@ The balance intercept problem was first introduced by @rudolph2021 to addressed 
 
 In the rest of this article, we look into the balance intercept problem with different statistical lenses. Specifically, we summarize what statistical problem the balance intercept manifest/represent, how the original authors set up the problem in a reference coding system, and how to translate the problem into the effect coding scope which provides a much simple solution without algorithmic integration.
 
-[TODO: add what the problem is, what the authors problem. degree of freedom.]
+In order to develop the statistical perspective about the balance intercept problem, we need to first introduce the coding scheme concept. Coding scheme describe the way a categorical variable is enumerated in the regression system. Most commonly used coding schemes in analysis include reference coding (also known as dummy coding) and the effect coding. The reference coding creates $p-1$ binary columns (i.e. the value of each cell is either 0 or 1) for a categorical variable with $p$ levels. The reference coding provides very easy effect comparison within levels of the categorical variables. In comparison, the effect coding also enumerates a $p$-level categorical variable into a matrix with $p-1$ columns but the value of the cells normally include 0, 1, and -1. The effect coding provides interpretation that how the mean of each level deviates from the mean of means, and is preferred coding scheme in experimental design. For more techinical details, we defer to [TODO: add textbook, probably INTRODUCING ANOVA and ANCOVA by andrew rutherford]. To note, the selection of coding scheme doesn't limit to the . In other words, both coding scheme can be applied ubiquitously without limiting to certain the model of choice, and link function of choice.
+
+Here, we adapt the toy example in xxx to illustrate the difference and interpretation of the two coding scheme.
 
 The balance intercept is an adjustment to the conditional probability of the reference level of a categorical covariate. Nevertheless, both methods require extensive calculations, and there could be a more straightforward solution.
+
+[TODO: add what the problem is, what the authors problem. degree of freedom.]
 
     based on the reference coding scheme
 
