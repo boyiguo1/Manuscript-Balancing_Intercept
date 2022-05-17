@@ -4,7 +4,7 @@ library(tarchetypes) # Load other packages as needed. # nolint
 
 # Set target options:
 tar_option_set(
-  packages = c("rticles"), # packages that your targets need to run
+  packages = c("rticles", "rmarkdown", "knitr"), # packages that your targets need to run
   format = "rds" # default storage format
   # Set other options as needed.
 )
@@ -22,11 +22,15 @@ list(
   # Manuscript --------------------------------------------------------------
   tar_files(
     name = manu_files,
-    c("Manuscript/references.bib")
+    c("Manuscript/01-intro.Rmd",
+      "Manuscript/02-coding.Rmd",
+      "Manuscript/03-sim.Rmd",
+      "Manuscript/04-conclusion.Rmd",
+      "Manuscript/references.bib")
   ),
 
   tar_render(manu,
-             # "Manuscript/00-main.Rmd",
-             "Manuscript/Report.Rmd",
+             "Manuscript/00-main.Rmd",
+             output_dir = "Manuscript",
              output_file = "effect_coding_intercept.pdf")
 )
