@@ -1,3 +1,5 @@
+<!-- % In the rest of this article, we look into the balance intercept problem with different statistical lenses. Specifically, we summarize what statistical problem the balance intercept manifest/represent, how the original authors set up the problem in a reference coding system, and how to translate the problem into the effect coding scope which provides a much simple solution without algorithmic integration. -->
+
 In this report, we propose to use the effect coding scheme in simulations to address the problem of controlling marginal probability of binary outcomes. We provide preliminary evidence that the proposal works for both balanced and unbalanced designs via toy examples. Compared to the previous solutions that based on the reference coding scheme, our proposed solution requires less calculation than the approaches to derive analytic and numeric approximation of the balance point. Particularly, it requires modest calculation when the study design is balanced.
 
 The problem of controlling marginal probability in essence is to find the conditional probability for the reference group, as all the other simulation parameters and the model degrees of freedom are considered fixed.
@@ -10,3 +12,6 @@ The reason why this is necessary
 The simulation strategy translates easily to other programming e.g. *SAS*, *STATA*, whose implementations are not shown in this article. 
 
 The author doesn’t arugula if analytic approach and computational approach is superior. Instead, we advocate for a balanced emphasis on both computational skills and analytic thinking. 
+
+
+An alternative simulation strategy to control the marginal probability of a binary outcome. Instead of constructing the simulation based on the reference coding scheme, we encourage using effect coding, specifically deviation coding, to construct the design matrix of categorical covariates. The theoretical basis of this proposal is that the intercept term of the effect coding model (regardless of the link function or parametric assumptions) is the mean of the group means, which coincides with the marginal probability of a binary outcome when the groups are balanced. Hence, to simulate data from balanced designs, no additional calculation is needed compared to the previous proposals. In the case of unbalanced design, it is very intuitive to adjust the simulation equations and requires minimum arithmetic calculation. (See examples below) 

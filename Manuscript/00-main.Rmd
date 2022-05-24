@@ -15,11 +15,11 @@ library(targets)
 
 tar_load(manu_files)
 ```
-# Introduction
+<!-- # Introduction -->
 ```{r child = manu_files[[1]]}
 ```
 
-# Effect Coding Primer
+<!-- # Effect Coding Primer -->
 ```{r child = manu_files[[2]]}
 ```
 
