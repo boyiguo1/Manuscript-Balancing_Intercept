@@ -26,7 +26,9 @@ list(
       "Manuscript/02-coding.Rmd",
       "Manuscript/03-sim.Rmd",
       "Manuscript/04-conclusion.Rmd",
-      "Manuscript/references.bib")
+      "Manuscript/references.bib",
+      "Manuscript/tab/code_scheme.tex"
+      )
   ),
 
   tar_render(manu,
