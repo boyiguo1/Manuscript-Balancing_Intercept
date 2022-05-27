@@ -1,5 +1,5 @@
 ---
-title: "Lean on your statistics: the simplification of the balance intercept problem"
+title: "Lean on your statistics: The generalization and  simplification of the balance intercept problem"
 output: 
   pdf_document:
     extra_dependencies: ["array"]
@@ -23,11 +23,11 @@ tar_load(manu_files)
 ```{r child = manu_files[[2]]}
 ```
 
-# Balance Intercept of effect Coding
+<!-- # Balance Intercept of effect Coding -->
 ```{r child = manu_files[[3]]}
 ```
 
-# Conclusion
+<!-- # Conclusion -->
 ```{r child = manu_files[[4]]}
 ```
 
