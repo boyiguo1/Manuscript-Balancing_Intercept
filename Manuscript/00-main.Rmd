@@ -24,7 +24,7 @@ tar_load(manu_files)
 ```
 
 <!-- # Balance Intercept of effect Coding -->
-```{r child = manu_files[[3]]}
+```{r child = manu_files[[3]], eval = F}
 ```
 
 <!-- # Conclusion -->
