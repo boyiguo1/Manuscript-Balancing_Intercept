@@ -1,0 +1,53 @@
+---
+title: "Supporting Information"
+subtitle: "Lean on your statistics: The generalization and  simplification of the balance intercept problem"
+author: "Boyi Guo, Jacqueline Rudolph"
+output: pdf_document
+# date: '2022-05-30'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+
+The marginal mean (probability of event for binary outcome), $\mathbb{E}_Y(Y)$ can be expressed as a double expectation of the covariates $\bs X$
+\begin{align*}
+\mathbb{E}_Y(Y) &= \mathbb{E}_{\bs X}(\mathbb{E}_Y(Y|\bs X))\\
+                         &= \mathbb{E}_{\bs X}(g^{-1}(\beta_0 + \bs \beta_1 \bs X)),
+\end{align*}
+where $g^{-1}$ is the inverse function of the link function $g$, $\beta_0$ is the balance intercept of interest, $\bs \beta_1$ is the coefficient vector for the covariates $\bs X$ which can be the enumeration of a categorical variable or multiple continuous variable.
+
+### Balance Intercept Calculation on the Linear Predictor Scale
+Only when $g^{-1}(\mathbb{E}(\cdot)) = \mathbb{E}(g^{-1}(\cdot))$ (e.g. $g^{-1}$ is a linear function), we can accurately calculate the balance intercept on the linear predictor scale, as
+\begin{align}
+\mathbb{E}_Y(Y) &= g^{-1}\{\mathbb{E}_{\bs X}(\beta_0 + \bs \beta_1 \bs X)\}\nonumber\\
+g\{\mathbb{E}_Y(Y)\} &= \mathbb{E}_{\bs X}(\beta_0 + \bs \beta_1 \bs X)\nonumber\\
+g\{\mathbb{E}_Y(Y)\} &= \beta_0 + \mathbb{E}_{\bs X}(\bs \beta_1 \bs X)\nonumber\\
+\beta_0 &= g\{\mathbb{E}_Y(Y)\} - \mathbb{E}_{\bs X}(\bs \beta_1 \bs X).
+\label{eq:linr_link}
+\end{align}
+Equation \eqref{eq:linr_link} further simplifies to the analytic approximation in Rudolph et al. (2021) when $\bs X$ are pairwise independent,
+\begin{equation*}
+\beta_0 = g\{\mathbb{E}_Y(Y)\} - \sum\limits_{j=1}^p \beta_j\mathbb{E}_{X_j}(X_j).
+\end{equation*}
+
+### Balance Intercept Calculation on the Response Scale
+When $g^{-1}(\mathbb{E}(\cdot)) \neq \mathbb{E}(g^{-1}(\cdot))$, it would be only sensible to conduct the calculation on the response scale. And the calculation can be complicated as the complexity of the link function and the number of predictors increase. We show how to derive the balance intercept when the link function is the logarithm function, i.e. $g(x) = \log(x)$. 
+\begin{align}
+\mathbb{E}_Y(Y) &= \mathbb{E}_{\bs X}(\exp(\beta_0 + \bs \beta_1 \bs X))\nonumber\\
+&= \mathbb{E}_{\bs X}(\exp(\beta_0) *\exp(\bs \beta_1 \bs X))\nonumber\\
+&= \exp(\beta_0)\mathbb{E}_{\bs X}(\exp(\bs \beta_1 \bs X))\nonumber\\
+\exp(\beta_0) &= \mathbb{E}_Y(Y) / \mathbb{E}_{\bs X}(\exp(\bs \beta_1 \bs X)\nonumber\\
+\beta_0 &= \log\{\mathbb{E}_Y(Y) / \mathbb{E}_{\bs X}(\exp(\bs \beta_1 \bs X)\}\nonumber\\
+\beta_0 & = \log(\mathbb{E}_Y(Y)) - \log(\mathbb{E}_{\bs X}(\exp(\bs \beta_1 \bs X)).
+\label{eq:log_link}
+\end{align}
+When $\bs X$ are pairwise independent, Equation \eqref{eq:log_link} simplifies to 
+\begin{equation*}
+\beta_0 = \log \{\mathbb{E}_Y(Y)\} - \sum\limits_{j=1}^p \log(\mathbb{E}_{X_j}(\exp(\beta_j X_j))).
+\end{equation*}
+If the moment generating function $M_X(t)$ is known, it can be used to simplify the calculation for $M_X(\beta) = \mathbb{E}_{X}(\exp(\beta X))$ for individual variables or $M_{\bs X}(\bs \beta_1) =\mathbb{E}_{\bs X}(\exp(\bs \beta_1 \bs X)$ for the variable vector. 
+
+For some more complicated link function, e.g. the logistic function $g(x) = log\frac{x}{1-x}$, or the distribution of covariate $X$ is unknown, it is very difficult, if not impossible, to derive the closed-form solution of the balance intercept. Hence, it would be preferred to use the numeric solution. 

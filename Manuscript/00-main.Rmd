@@ -4,7 +4,7 @@ output:
   pdf_document:
     extra_dependencies: ["array"]
 author: "Boyi Guo, Jacqueline Rudolph"
-date: "`r Sys.Date()`"
+# date: "`r Sys.Date()`"
 bibliography: references.bib
 
 ---
