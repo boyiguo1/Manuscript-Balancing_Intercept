@@ -1,12 +1,12 @@
 ---
-title: "Lean on your statistics: The generalization and  simplification of the balance intercept problem"
-output: 
-  pdf_document:
-    extra_dependencies: ["array"]
+title: 'Lean on your statistics: The generalization and  simplification of the balance
+  intercept problem'
 author: "Boyi Guo, Jacqueline Rudolph"
-# date: "`r Sys.Date()`"
+output:
+  word_document: default
+  pdf_document:
+    extra_dependencies: array
 bibliography: references.bib
-
 ---
 
 ```{r setup, include=FALSE}
