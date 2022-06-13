@@ -1,0 +1,1 @@
+expit <- binomial()$linkinv
