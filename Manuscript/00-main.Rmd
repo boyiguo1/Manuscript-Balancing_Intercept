@@ -3,9 +3,9 @@ title: 'Lean on your statistics: The generalization and  simplification of the b
   intercept problem'
 author: "Boyi Guo, Jacqueline Rudolph"
 output:
-  word_document: default
   pdf_document:
     extra_dependencies: array
+    keep_tex: TRUE
 bibliography: references.bib
 ---
 

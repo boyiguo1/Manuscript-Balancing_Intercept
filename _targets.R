@@ -31,10 +31,16 @@ list(
       )
   ),
 
-  # tar_render(manu,
-  #            "Manuscript/00-main.Rmd",
-  #            output_file = "Manuscript/effect_coding_intercept.pdf")
   tar_render(manu,
              "Manuscript/00-main.Rmd",
-             output_file = "effect_coding_intercept.docx")
+             output_file = "effect_coding_intercept.pdf"),
+
+
+  tar_render(manu_append,
+             "Manuscript/10-appendix.Rmd",
+             output_file = "appendix.pdf")
+
+  # tar_render(manu,
+  #            "Manuscript/00-main.Rmd",
+  #            output_file = "effect_coding_intercept.docx")
 )

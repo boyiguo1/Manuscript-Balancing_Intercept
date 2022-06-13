@@ -1,0 +1,247 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Lean on your statistics: The generalization and simplification of the balance intercept problem},
+  pdfauthor={Boyi Guo, Jacqueline Rudolph},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\usepackage{array}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Lean on your statistics: The generalization and simplification of
+the balance intercept problem}
+\author{Boyi Guo, Jacqueline Rudolph}
+\date{}
+
+\begin{document}
+\maketitle
+
+As the field of epidemiology evolves, there are growing interests to
+employ more computational approaches to solve analytic problems. Among
+them, simulation is one of the most accessible concepts. Previous
+literature argues the importance of simulation in epidemiology education
+and research. {[}TODO: add citations{]} Even though computational tools
+can be very helpful, we caution the excess reliance on the computation
+in analytic problem solving and the total neglect of fundamental
+statistics theories. In the article, we demonstrate how basic statistics
+knowledge can simplify the balance intercept problem and provide a
+generalized solution. Specifically, we dissect the balance intercept
+problem from a statistical perspective, formulate the balance intercept
+calculation for all outcomes and link functions, and provide an
+alternative solution that require significantly less computation.
+
+The balance intercept concept was first introduced by Rudolph et al.
+(2021) to control the marginal probability of binary outcomes when
+constructing a simulation study. The authors proposed to calculate a
+``balance intercept'' to replace the ``standard intercept'' in
+simulation procedures. Robertson, Steingrimsson, and Dahabreh (2021)
+discovered that the analytic solution of the balance intercept produces
+inaccurate control when the data generating model employs a logistic
+link function. They proposed to use root finding algorithms to find the
+balance intercept numerically. Later, Zivich and Ross (2022) generalized
+the numeric solutions to several other outcome distributions.
+
+To better understand the balance intercept problem, we first review two
+basic statistics concepts, coding schemes and link functions. A coding
+scheme describes how a categorical variable is enumerated in a
+regression system. Most commonly used coding schemes include the
+reference coding (also known as dummy coding) and the effect coding.
+Both coding schemes create \(p-1\) columns for a categorical variable
+with \(p\) levels. The reference coding employs 0 and 1 to denote the
+level an individual belongs, while the effect coding employs 0, 1, and
+-1. For example, a binary variable would be coded as a vector of 0 for
+the reference level and 1 for the comparing level using the reference
+coding and a vector of 1 and -1 using the effect coding. (See an example
+of three-level categorical variable in Table 1). As the enumerations are
+different for the two coding schemes, they offer different
+interpretations of regression coefficients. The reference coding
+emphasizes the change relative to a reference level of preference; the
+effect coding emphasizes the deviation from the grand mean (here refer
+to as the mean of the level means). Nevertheless, the two schemes
+translate to each other one-on-one and provide the same statistical
+inference. To note, both coding schemes can be applied ubiquitously in
+any regression system regardless the outcome distribution and the link
+function of choice. In addition, a link function describes the
+mathematical relationship between linear predictor and the mean of the
+outcome. Similar to generalized linear models, the choice of estimands
+decides the link function in the data generating model. For example, if
+the estimands of observation is risk difference, an identify function is
+preferred instead of a logistic function in the data generating model.
+The choice of the link function in the data generating model has impact
+on the accuracy of the imbalance intercept approximation and will be
+elaborate more later.
+
+\input{tab/code_scheme.tex}
+
+The original proposal (Rudolph et al. 2021) of the balance intercept
+defaults to the reference coding system without explicit mentioning, and
+carries along in the subsequent studies. The intercept term in the
+reference coding scheme describes the conditional probability of the
+reference level of a categorical variable. Forcing the intercept term to
+the target marginal probability (referred to as the standard intercept
+in Rudolph et al. (2021)) would naturally fail due to the definition
+discrepancy. Statistically, to derive the balance intercept is to derive
+the conditional probability of the reference level and can be achieved
+with analytic and numeric approximations. Nevertheless, the accuracy
+could be vulnerable to the quality of numeric analysis and programming
+proficiency.
+
+The primary reason that the analytic approximation (Rudolph et al. 2021)
+of the balance intercept may fail is because of the inequality between a
+function of the expectation and the expectation of a function when the
+function is not linear. Derive the analytic approximation on the linear
+predictor scale as in Rudolph et al.~(2021) will introduce this problem
+when link functions is nonlinear. (Robertson, Steingrimsson, and
+Dahabreh 2021) Hence, the derivation of the balance intercept should be
+conducted on the response scale, e.g., the probability scale for binary
+outcomes regardless of the link function. Following the mathematical
+derivation in the Supporting Material {[}TODO: add hyperlink{]}, it is
+clear Rudolph's balance intercept equation is the exact solution for
+linear link functions. We also provide a closed-form solution for
+logarithm link function. Another commonly used link function, the logit
+function, is not easily tractable, and hence is recommended to use Monte
+Carlo algorithms or root-find algorithms to derive numerically.
+
+Using the reference coding system in data generating models is very
+convenient when the comparison between the group means are the known
+information. Nevertheless, it requires additional calculation when
+conditional probabilities are given. In this case, it is more convenient
+to use effect coding system, where the coefficients describe the
+discrepancy of the level means. Meanwhile, the intercept term in the
+effect coding scheme describes the mean of the group means, which
+coincides with the marginal probability when the sample sizes are
+balanced across levels. In other words, the balance intercept problem
+does not exist for simulations with balanced designs when using the
+effect coding. When the underlying design is not balanced, the intercept
+is simply to calculate the grand mean by averaging the conditional
+probabilities, \(\delta_0 = \sum\limits_{j=1}^p \pi_j /p\).
+
+In this report, we provide a statistics perspective to the balance
+intercept problem. Specifically, we clarify the simulation procedure
+when the reference coding scheme and the effect coding scheme are used
+as the foundation of the procedure. With an statistical analysis of the
+simulation procedure, we provide a generalized solution to calculate the
+balance intercept that addresses all forms of outcomes and link
+functions. We show that the balance intercept problem drastically
+simplifies when applying effect coding scheme. Notably, when the design
+of the study is balanced, there is minimum calculation is needed.
+
+In addition to the statistical solution for the balance intercept
+problem, we want to emphasize that the fundamental skills of statistics
+can not be ignored, even in the erra of computation. The growing
+computation power can greatly reduce the technical burden to derive
+analytic solutions with numeric devices. Nevertheless, the accuracy of
+numeric solution greatly depends on the perfection of the
+implementation, and can be easily overlooked. The fundamental statistics
+skills can provide a shortcut to the correct solution, and provide great
+translatability across programming languages in comparison to numeric
+solutions. The author doesn't arugula if analytic approach and
+computational approach is superior. Instead, we advocate for a balanced
+emphasis on both computational skills and analytic thinking.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-robertson2021}{}}%
+Robertson, Sarah E, Jon A Steingrimsson, and Issa J Dahabreh. 2021.
+{``Using Numerical Methods to Design Simulations: Revisiting the
+Balancing Intercept.''} \emph{American Journal of Epidemiology},
+November, kwab264. \url{https://doi.org/10.1093/aje/kwab264}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-rudolph2021}{}}%
+Rudolph, Jacqueline E, Jessie K Edwards, Ashley I Naimi, and Daniel J
+Westreich. 2021. {``SIMULATION IN PRACTICE: THE BALANCING INTERCEPT.''}
+\emph{American Journal of Epidemiology} 190 (8): 1696--98.
+\url{https://doi.org/10.1093/aje/kwab039}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-zivich2022}{}}%
+Zivich, Paul N, and Rachael K Ross. 2022. {``RE: {``}Using Numerical
+Methods to Design Simulations: Revisiting the Balancing
+Intercept{''}.''} \emph{American Journal of Epidemiology}, May.
+\url{https://doi.org/10.1093/aje/kwac083}.
+
+\end{CSLReferences}
+
+\end{document}
