@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 beta_0|stem|f576c43748ef0433|c18e55c6ea14b670|e53aa4fecce0dba8|-1854432919||t19156.8517314141s|7e02ad38317bcde4|55|rds|local|vector|||0.001||
-beta_1|stem|35e4ded3d426ef4e|c3472fa199a0207e|a3dad144c40657ed|-1571996908||t19156.8247780865s|c9aaea90a821e608|53|rds|local|vector|||0.001||
+beta_1|stem|dc6473ecaa7db7ad|b8341b1823f5749a|0e7f82db1e6d45a8|-1571996908||t19157.6282438338s|00c37fc0166b3b11|58|rds|local|vector|||0.001||
 beta_2|stem|c59849c452f7ed09|0e2890e1b1d6be9c|ef46db3751d8e999|-1393668010||t19156.8247782031s|b6d2e014b07bc296|51|rds|local|vector|||0.001||
 expit|function|efae2fa69d13318e|||||||||||||||
 file|object|b0f8e067dcb892b6|||||||||||||||
@@ -14,16 +14,31 @@ manu_files_a037a1a6|branch|f7d2430a1802e7dd|4ffe3b070be43b2d|afec83ef56fe6887|-9
 manu_files_bfa04161|branch|e7741f26cdcf2bd3|4ffe3b070be43b2d|ab9fef63d6027675|-328239292|Manuscript/03-sim.Rmd|t19138.8458341849s|bdc1b157e6cc1be9|2323|file|local|vector|manu_files||0.001||
 manu_files_c0459fb6|branch|0602c74bc115a63b|4ffe3b070be43b2d|b935d8ae8957749d|596151931|Manuscript/04-conclusion.Rmd|t19138.9292656924s|715e5f6997ce9ee9|3747|file|local|vector|manu_files||0||
 manu_files_ca3b3ba0|branch|7fbaaddd60784414|4ffe3b070be43b2d|52f4bf770fbad256|-1131676866|Manuscript/tab/code_scheme.tex|t19136.8694032642s|907f8e3bb5d18572|625|file|local|vector|manu_files||0.001||
-manu_files_files|stem|81055e995b306057|610b90daacf31042|a3dad144c40657ed|-1994434977||t19156.8517296229s|2059933ece86081f|158|rds|local|vector||manu_files_files_cda5ffe9*manu_files_files_ad730cc3*manu_files_files_fcb1d8fe*manu_files_files_a61fe8be*manu_files_files_71be117e*manu_files_files_7e8baa47|0.056|package rticles was built under R version 4.1.2. package rmarkdown was built under R version 4.1.2. package knitr was built under R version 4.1.2|
-marg_target|stem|2daf6dfa68c9046e|7ad74765ca278b33|a3dad144c40657ed|1310592751||t19156.793407843s|3e4acf685da8f273|84|rds|local|vector|||0.001||
+manu_files_files|stem|81055e995b306057|610b90daacf31042|a3dad144c40657ed|-1994434977||t19157.6306878261s|2059933ece86081f|158|rds|local|vector||manu_files_files_cda5ffe9*manu_files_files_ad730cc3*manu_files_files_fcb1d8fe*manu_files_files_a61fe8be*manu_files_files_71be117e*manu_files_files_7e8baa47|0.066|package rticles was built under R version 4.1.2. package rmarkdown was built under R version 4.1.2. package knitr was built under R version 4.1.2|
+marg_target|object|f132466b77554a43|||||||||||||||
 mgf_binomial|function|85d43159a4a2e1bf|||||||||||||||
 mgf_multinomial|function|a2f2df7061adce53|||||||||||||||
 mgf_X1|stem|d430287ee375103b|41bea8040af0144c|21f33bd0fcff7129|689213706||t19156.8247792611s|7e02ad38317bcde4|55|rds|local|vector|||0.001||
 mgf_X2|stem|3459b46ab1ee9f5d|0de98de3e8d34570|d60aa92d6013cce7|1002649191||t19156.8472958841s|7e02ad38317bcde4|55|rds|local|vector|||0||
-n|stem|2aefc49ce8a2653c|1eb25cef5baa0138|6c745a6a1692852f|-645385487||t19156.8511985616s|c9aaea90a821e608|53|rds|local|vector|||0||
+n|stem|3a97166a136c102f|c0145c62ed143718|6c745a6a1692852f|-645385487||t19157.600193672s|c9aaea90a821e608|53|rds|local|vector|||0.001||
+n_it|stem|87b7bcec8cb550be|e6a4a97ad0b1ccac|ef46db3751d8e999|1188897171||t19157.6096746953s|b6d2e014b07bc296|51|rds|local|vector||n_it_d5551afe|0.001||
 prob_cap|function|dffae318fe623241|||||||||||||||
 sim_dat|stem|e9d5a0edb4c5a161|d35b0148df59132a|c155ed1b70eec2e3|1421360335||t19156.8511996069s|edb137945cb2d0f8|5699|rds|local|vector|||0.004||
+sim_par_df|object|feb71dd98cfa9c23|||||||||||||||
 sim_prob|stem|3da56f66e02f55bc|9eb2cccd2f7a85d9|09aa0dcc1e5980c3|147053283||t19156.8517316413s|efc5c965e7dbacca|3859|rds|local|vector|||0.002||
+sim_res|stem|aa1815674b1bc83a|90d88bfc1888cf15|fcfddf59d41af852|-292459895||t19157.6254777418s|ffa9a2ac008006bc|395|rds|local|group|||0.012||
+sim_res_0.1|pattern|7a7db074e8529576|de422ab86394acbe||1203559358||||298|rds|local|vector||sim_res_0.1_64e4f89c|0.918||
+sim_res_0.1_64e4f89c|branch|c089dc4e46185b59|de422ab86394acbe|84da9c8d399db6cb|-2049249446||t19157.6254683075s|efcd02b2c80eadaa|298|rds|local|vector|sim_res_0.1||0.918||
+sim_res_0.2|pattern|6f4262d9ee1878e6|93f8d084e98d7c6d||2028125709||||289|rds|local|vector||sim_res_0.2_64e4f89c|0.75||
+sim_res_0.2_64e4f89c|branch|f47a87afb30bd349|93f8d084e98d7c6d|84da9c8d399db6cb|395505952||t19157.6254772989s|815c38d038fbe0c4|289|rds|local|vector|sim_res_0.2||0.75||
+sim_res_0.5_64e4f89c|branch||0dd2fbb1a18c4577|2c82d8b8c3f534ed|-500147960||t19157.6304873747s||0|rds|local|vector|sim_res_0.5||0.061||nonnumeric argument to mathematical function
+sim_res_526d41b8|pattern|1ce634f9525f6868|93f8d084e98d7c6d||1098526521||||298|rds|local|vector||sim_res_526d41b8_64e4f89c|0.701||
+sim_res_526d41b8_64e4f89c|branch|2e8c09d811f480ff|93f8d084e98d7c6d|84da9c8d399db6cb|1063536199||t19157.6249185371s|efcd02b2c80eadaa|298|rds|local|vector|sim_res_526d41b8||0.701||
+sim_res_64e4f89c|branch|dfc72c1157a53b8b|499122716521a70d|3286bf3bbf234919|538241014||t19157.617919672s|4c877582db246f52|237|rds|local|group|sim_res||0.752||
+sim_res_batch|stem|325bb5102aa4d807|0bc268ea2d179e02|b5b3f3f1f2ebd7e9|1812569319||t19157.611015229s|ac45463db19e2cbe|48|rds|local|vector||sim_res_batch_ccba877f|0.001||
+sim_res_f5110228|pattern|264b10dfde0aa3e2|de422ab86394acbe||-2027654261||||289|rds|local|vector||sim_res_f5110228_64e4f89c|0.928||
+sim_res_f5110228_64e4f89c|branch|72fd28a15174ec92|de422ab86394acbe|84da9c8d399db6cb|-1120871749||t19157.6249101657s|815c38d038fbe0c4|289|rds|local|vector|sim_res_f5110228||0.928||
+sim_study|function|7c57c68719189abc|||||||||||||||
 simulate_dat|function|44c6649f5e845131|||||||||||||||
 X1_design|stem|aa320fb372fb4a64|b94597580b60b8f8|ef482de24f2deebb|-1569772596||t19156.8512002643s|259bfd5866941b16|8136|rds|local|vector|||0.01||
 y|stem|65afb99c7eee6284|2e40f4a14545737f|dbe5e3522facac82|-2137718520||t19156.851731831s|c37db96afa07cdd4|1370|rds|local|vector|||0.001||

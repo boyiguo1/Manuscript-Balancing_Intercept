@@ -13,34 +13,38 @@ tar_option_set(
 for (file in list.files("R", full.names = TRUE)) source(file)
 # source("other_functions.R") # Source other scripts as needed. # nolint
 
+
+n_it = 10
+
 # Replace the target list below with your own:
 tar_plan(
 
-
   # Simulation Example ------------------------------------------------------
   # * Parameters ------------------------------------------------------------
-  n = 10^4,
+  n = 10^5,
+  #,
+  # n_it = 1000,
   marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,0.80,0.90),
 
-  # * Simulate Data ---------------------------------------------------------
-  sim_dat = simulate_dat(n),
-
-  # * Calculate Balance Point -----------------------------------------------
-  beta_1 = c(1,1), # Log risk ratio of 3-level covariate
+  sim_par_df <- tibble::tibble(
+  marg_target = marg_target#,
+  # beta_1 = beta_1,
+  # beta_2 = beta_2
+  ),
+  beta_1 = list(c(1,1)),
   beta_2 = 1,
-  mgf_X1 = mgf_multinomial(p = c(0.5, 0.35, 0.15), n=1, t=beta_1),
-  mgf_X2 = mgf_binomial(p = 0.8, n=1, t=beta_2),
-  beta_0 = log(marg_target[1]) - log(mgf_X1) - log(mgf_X2),
-  X1_design = model.matrix(~factor(X1)+X2, sim_dat),
-  sim_prob = exp(X1_design%*%c(beta_0, beta_1, beta_2)),
-
-  y = rbinom(n, size = 1, prob = sim_prob),
 
 
-
-
-
-
+  # * Simulation
+  tar_map_rep(
+    sim_res,
+    command = sim_study(n = n, marg_target,
+              beta_1 = beta_1, beta_2 = beta_2,
+              X2_dist = "binary"),
+    values = data.frame(marg_target),
+    names = tidyselect::any_of("marg_target"),
+    batch = 1, reps = n_it
+  ),
 
   # Manuscript --------------------------------------------------------------
   tar_files(
