@@ -20,7 +20,7 @@ simulate_dat <- function(n, Xdistn = c("binary", "uniform", "normal", "gamma")){
     X2 <- rnorm(n,0,1)
   } else if (Xdistn=="gamma"){
     p.x2 <- 1/0.50 #2
-    X2 <- rgamma(n,shape=1,rate=0.5)
+    X2 <- rgamma(n,shape=1,rate=1.5)
   }
 
   return(data.frame(X1, X2))

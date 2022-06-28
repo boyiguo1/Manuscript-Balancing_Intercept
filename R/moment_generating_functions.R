@@ -21,7 +21,7 @@ mgf_normal <- function(mu, var, t){
 }
 
 
-mgf_gamma <- function(sahpe, rate, t){
-  if(t >= rate) stop("Error: not defined")
+mgf_gamma <- function(shape, rate, t){
+  if(t >= rate) stop("Error: mgf of gamma distribution not defined when t >= rate")
   (1-t/rate)^(-1*shape)
 }
