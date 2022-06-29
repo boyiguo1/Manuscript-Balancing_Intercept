@@ -5,7 +5,7 @@ library(tarchetypes) # Load other packages as needed. # nolint
 # Set target options:
 tar_option_set(
   packages = c("rticles", "rmarkdown", "knitr",
-               "tidyverse"), # packages that your targets need to run
+               "tidyverse", "ggplot2", "ggpubr"), # packages that your targets need to run
   format = "rds" # default storage format
   # Set other options as needed.
 )
@@ -22,30 +22,11 @@ n <- 1e4
 n_it <- 10
 
 
-assess_hyperparameters <- function(sigma1, sigma2) {
-  # data <- simulate_random_data() # user-defined function
-  # run_model(data, sigma1, sigma2) # user-defined function
-  # Mock output from the model:
-  posterior_samples <- stats::rnorm(1000, 0, sigma1 + sigma2)
-  tibble::tibble(
-    posterior_median = median(posterior_samples),
-    posterior_quantile_0.025 = quantile(posterior_samples, 0.025),
-    posterior_quantile_0.975 = quantile(posterior_samples, 0.975)
-  )
-}
-
-hyperparameters <- tibble::tibble(
-  scenario = c("tight", "medium", "diffuse"),
-  sigma1 = c(10, 50, 50),
-  sigma2 = c(10, 5, 10)
-)
-
-
 sim_param <-  tidyr::expand_grid(
   # marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,0.80,0.90),
   marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50),
   beta_1 = list(c(0.2,-0.2)),
-  beta_2 = log(seq(from = 1, to = 2, by = 0.4)),
+  beta_2 = log(seq(from = 1, to = 3, by = 0.5)),
   X2_dist = c("binary",
               "normal",
               "uniform",
@@ -56,7 +37,7 @@ sim_param <-  tidyr::expand_grid(
 
 sim_tar <- tarchetypes::tar_map_rep(
   simulations,
-  command =sim_study(n = n, marg_target,
+  command = sim_study(n = n, marg_target,
                     beta_1 = beta_1,
                     beta_2 = beta_2,
                     X2_dist = X2_dist),
@@ -84,6 +65,18 @@ list(
         missing = mean(missing)
         ) %>%
       arrange(X2_dist, beta_2, marg_target)
+  ),
+
+  tar_target(
+    sim_plots,
+     sim_sum %>% plot_sim()
+  ),
+
+  tar_target(
+    sim_grid,
+    sim_plots %>%
+      ggarrange(plotlist = ., nrow = 2, ncol = 2,
+                common.legend = TRUE, legend = "bottom")
   ),
 
   # Manuscript --------------------------------------------------------------
