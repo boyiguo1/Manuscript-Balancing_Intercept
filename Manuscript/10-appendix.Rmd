@@ -51,3 +51,20 @@ When $\bs X$ are pairwise independent, Equation \eqref{eq:log_link} simplifies t
 If the moment generating function $M_X(t)$ is known, it can be used to simplify the calculation for $M_X(\beta) = \mathbb{E}_{X}(\exp(\beta X))$ for individual variables or $M_{\bs X}(\bs \beta_1) =\mathbb{E}_{\bs X}(\exp(\bs \beta_1 \bs X)$ for the variable vector. 
 
 For some more complicated link function, e.g. the logistic function $g(x) = log\frac{x}{1-x}$, or the distribution of covariate $X$ is unknown, it is very difficult, if not impossible, to derive the closed-form solution of the balance intercept. Hence, it would be preferred to use the numeric solution. 
+
+
+### Balance Intercept with Effect Coding
+When the mean statistics (e.g. the prevalence of a disease) of each level/group is given, it is more convenient to 
+simulate the outcomes out of each level/group and aggregate the group data to compose the overall data set. For a 2-level example, we can verify the simulation procedure works in this case, as follows
+
+$$
+Pr(Y=1) = \frac{n_1Pr(Y=1|X=0) + n_2Pr(Y=1|X=1)}{n_1 + n_2} = \frac{n_1Pr(Y=1|X=0) + n_2(Pr(Y=1|X=0) + RD}{n_1 + n_2}
+$$
+
+However, this case rarely happens even when we can calculate the conditional probability for each group from the original estimand (e.g. risk ratio and odds ratio with the reference group statistics) as continuous covariates could not be considered in this case unless use some form of categorization.
+
+
+
+calculate 
+
+the balance intercept and hence the construct the simulation procedure using the effect coding system, following its definition. As previously introduced, the intercept term in the effect coding regression model is simply the grand mean 
