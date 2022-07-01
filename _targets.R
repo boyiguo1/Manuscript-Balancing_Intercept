@@ -47,10 +47,25 @@ sim_tar <- tarchetypes::tar_map_rep(
   reps = n_it
 )
 
+sim_norm_tar <- tarchetypes::tar_map_rep(
+  simulations_norm,
+  command = sim_norm_study(n = n, marg_target,
+                      beta_1 = beta_1,
+                      beta_2 = beta_2,
+                      X2_dist = X2_dist),
+  values = sim_param,
+  # names = tidyselect::any_of("scenario"),
+  batches = 1,
+  reps = n_it
+)
+
 
 
 list(
   sim_tar,
+
+  sim_norm_tar,
+
   tar_target(
     sim_sum,
     simulations %>%
@@ -64,6 +79,23 @@ list(
         mean_prob_cap = mean(obs_prob_cap),
         missing = mean(missing)
         ) %>%
+      arrange(X2_dist, beta_2, marg_target)
+  ),
+
+
+  tar_target(
+    sim_sum_norm,
+    simulations_norm %>%
+      group_by(tar_group) %>%
+      summarize(
+        X2_dist = first(X2_dist),
+        beta_2 = first(beta_2),
+        marg_target = first(marg_target),
+        mean_prob = mean(obs_prob),
+        MC_se = sd(obs_prob),
+        # mean_prob_cap = mean(obs_prob_cap),
+        missing = mean(missing)
+      ) %>%
       arrange(X2_dist, beta_2, marg_target)
   ),
 

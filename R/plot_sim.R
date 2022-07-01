@@ -2,7 +2,7 @@ plot_sim <- function(dat){
   final_dat <- dat %>%
     mutate(
       X2_dist = factor(X2_dist),
-      bias = marg_target - mean_prob_cap,
+      bias =  mean_prob_cap - marg_target,
            rr = exp(beta_2) %>% factor())
   browser()
   final_dat %>%
