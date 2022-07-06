@@ -154,99 +154,61 @@ functions limits if a closed-form equation of the balance intercept is
 possible. We derive the the closed-form equation for linear link
 function and log link function in the appendix. The balance intercept is
 mathematically intractable with logit link function, and hence, we
-recommand to use numeric approximation proposed by Robertson,
+recommend to use numeric approximation proposed by Robertson,
 Steingrimsson, and Dahabreh (2021) and Zivich and Ross (2022).
 
-Similar to generalized linear models, the choice of estimands decides
-the link function in the data generating model. For example, if the
-estimands of observation is risk difference, an identify function is
-preferred instead of a logistic function in the data generating model.
-The choice of the link function in the data generating model has impact
-on the accuracy of the imbalance intercept approximation and will be
-elaborate more later.
+Another layer of complex comes from the covariate adjustment in the
+simulation design, particularly when the covariates are continuous and
+have non-zero means. Covariate adjustment is one of the most
+indispensable concept in quantitative analysis and it is highly relevant
+to test and quantify causal mechanisms. Recent research articles
+emphasize how to simulate causal relationship embedded in a directed
+acyclic graph. {[}TODO: add citation{]} The complication in calculating
+balance intercept mainly coexits when the linear link is not linear.,
+which causes difficulties to calculate the expectation of the link
+function. When the link function is nonlinear, we can not simply
+considers the balance intercept as a linear function of \(E(X)\) due to
+the inequality between g\^{}\{-1\}(EX) = E(g\^{}\{-1\}(X). we provide an
+closed form equation of balance intercept with log link function for
+estimand on the multiplicative model. To simplify this equation, we can
+replace the expectation \(E(\exp(\beta X))\) with the moment generating
+function. The moment generating function is a short cut to calculate
+these expectation of exponential functions, and hence and simplify the
+calculation. Neverthesless, moment generating function only works when
+the underlying distribution of the covariate is known. For situations
+when the underlying distribution is not unknown, e.g.synthesizing
+outcome using existing data and effect sizes. we can apply Monte Carlo
+technique to derive \(E(exp(betaX)\). Specifically, one can sample the
+covariates with replacement for a large amount of iterations (stay
+1000), and apply the function to the sampled data, and take average.
 
-control the marginal probability of binary outcomes when constructing a
-simulation study. The authors proposed to calculate a ``balance
-intercept'' to replace the ``standard intercept'' in simulation
-procedures. Robertson, Steingrimsson, and Dahabreh (2021) discovered
-that the analytic solution of the balance intercept produces inaccurate
-control when the data generating model employs a logistic link function.
-They proposed to use root finding algorithms to find the balance
-intercept numerically. Later, Zivich and Ross (2022) generalized the
-numeric solutions to several other outcome distributions.
-
-To better understand the balance intercept problem, we first review two
-basic statistics concepts, coding schemes and link functions. A coding
-scheme describes how a categorical variable is enumerated in a
-regression system. Most commonly used coding schemes include the
-reference coding (also known as dummy coding) and the effect coding.
-Both coding schemes create \(p-1\) columns for a categorical variable
-with \(p\) levels. The reference coding employs 0 and 1 to denote the
-level an individual belongs, while the effect coding employs 0, 1, and
--1. For example, a binary variable would be coded as a vector of 0 for
-the reference level and 1 for the comparing level using the reference
-coding and a vector of 1 and -1 using the effect coding. (See an example
-of three-level categorical variable in Table 1). As the enumerations are
-different for the two coding schemes, they offer different
-interpretations of regression coefficients. The reference coding
-emphasizes the change relative to a reference level of preference; the
-effect coding emphasizes the deviation from the grand mean (here refer
-to as the mean of the level means). Nevertheless, the two schemes
-translate to each other one-on-one and provide the same statistical
-inference. To note, both coding schemes can be applied ubiquitously in
-any regression system regardless the outcome distribution and the link
-function of choice. In addition, a link function describes the
-mathematical relationship between linear predictor and the mean of the
-outcome. Similar to generalized linear models, the choice of estimands
-decides the link function in the data generating model. For example, if
-the estimands of observation is risk difference, an identify function is
-preferred instead of a logistic function in the data generating model.
-The choice of the link function in the data generating model has impact
-on the accuracy of the imbalance intercept approximation and will be
-elaborate more later.
-
-The original proposal (Rudolph et al. 2021) of the balance intercept
-defaults to the reference coding system without explicit mentioning, and
-carries along in the subsequent studies. The intercept term in the
-reference coding scheme describes the conditional probability of the
-reference level of a categorical variable. Forcing the intercept term to
-the target marginal probability (referred to as the standard intercept
-in Rudolph et al. (2021)) would naturally fail due to the definition
-discrepancy. Statistically, to derive the balance intercept is to derive
-the conditional probability of the reference level and can be achieved
-with analytic and numeric approximations. Nevertheless, the accuracy
-could be vulnerable to the quality of numeric analysis and programming
-proficiency.
-
-The primary reason that the analytic approximation (Rudolph et al. 2021)
-of the balance intercept may fail is because of the inequality between a
-function of the expectation and the expectation of a function when the
-function is not linear. Derive the analytic approximation on the linear
-predictor scale as in Rudolph et al.~(2021) will introduce this problem
-when link functions is nonlinear. (Robertson, Steingrimsson, and
-Dahabreh 2021) Hence, the derivation of the balance intercept should be
-conducted on the response scale, e.g., the probability scale for binary
-outcomes regardless of the link function. Following the mathematical
-derivation in the Supporting Material {[}TODO: add hyperlink{]}, it is
-clear Rudolph's balance intercept equation is the exact solution for
-linear link functions. We also provide a closed-form solution for
-logarithm link function. Another commonly used link function, the logit
-function, is not easily tractable, and hence is recommended to use Monte
-Carlo algorithms or root-find algorithms to derive numerically.
-
-Using the reference coding system in data generating models is very
-convenient when the comparison between the group means are the known
-information. Nevertheless, it requires additional calculation when
-conditional probabilities are given. In this case, it is more convenient
-to use effect coding system, where the coefficients describe the
-discrepancy of the level means. Meanwhile, the intercept term in the
-effect coding scheme describes the mean of the group means, which
-coincides with the marginal probability when the sample sizes are
-balanced across levels. In other words, the balance intercept problem
-does not exist for simulations with balanced designs when using the
-effect coding. When the underlying design is not balanced, the intercept
-is simply to calculate the grand mean by averaging the conditional
-probabilities, \(\delta_0 = \sum\limits_{j=1}^p \pi_j /p\).
+One of the complications that was not explicitly discussed in previous
+balance intercept literature is the generalization of binary exposure
+and comparatives to multiple-level, which can also include the
+statistical interaction of two categorical variables,
+i.e.~exposure-covariate interaction or covariate-covariate interaction,
+as an special case. When enumerating a binary variable in the simulation
+design, we normally create a data column containing zeros and ones to
+represent the two levels of the variable (with refernce coding). In
+contrast, we create \(p-1\) columns for a \(p\)-level variable, where
+each column is marked with 1 if a subject belongs to a level while 0
+otherwise. This enumeration nullifies the closed-form proposed by
+Rudolph et al. (2021) even with a linear link function. It is unclear if
+one should calculate the mean of the categorical variable as a
+multinomial variable. It would also unsensible to calculate the
+expecation of each column of the data matrix spanning the categorical
+variable. This treats each column independent binary variables and
+ignores the grouping strucutre and collinearity of these columns. This
+will result in for the balance intercept. In these situations we advise
+to use our proposed model, by applying the moment generating function,
+it intrinsically handles xxx and provide an more accurate solution. Even
+though each column of the design matrix can be seen as individual
+variables, the previous close equation would not work because the
+variables are not pairwise independent. Nevertheless, we can rely on the
+mgf of multinomial distribution or Monte Carlo approach to calculate
+xxx. When statistical interaction exists, one can simply treat it as an
+special case of multi-level categorical variable by enlist all possible
+combinations and derive the corresponding risk ratios.
 
 In this report, we provide a statistics perspective to the balance
 intercept problem. Specifically, we clarify the simulation procedure

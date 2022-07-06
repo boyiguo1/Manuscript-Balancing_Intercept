@@ -20,7 +20,7 @@ tar_load(manu_files)
 ```
 
 <!-- # Effect Coding Primer -->
-```{r child = manu_files[[2]]}
+```{r child = manu_files[[2]], eval = F}
 ```
 
 <!-- # Balance Intercept of effect Coding -->
