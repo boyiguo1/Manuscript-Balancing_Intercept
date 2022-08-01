@@ -104,12 +104,25 @@ list(
      sim_sum %>% plot_sim()
   ),
 
+  # tar_target(
+  #   sim_plots_norm,
+  #   sim_sum_norm %>% plot_sim()
+  # ),
+
+
   tar_target(
     sim_grid,
     sim_plots %>%
       ggarrange(plotlist = ., nrow = 2, ncol = 2,
                 common.legend = TRUE, legend = "bottom")
   ),
+
+  # tar_target(
+  #   sim_grid_norm,
+  #   sim_plots_norm %>%
+  #     ggarrange(plotlist = ., nrow = 2, ncol = 2,
+  #               common.legend = TRUE, legend = "bottom")
+  # ),
 
   # Manuscript --------------------------------------------------------------
   tar_files(

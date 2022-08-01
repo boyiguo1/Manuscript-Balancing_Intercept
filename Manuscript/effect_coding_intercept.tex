@@ -33,14 +33,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Lean on your statistics: The generalization and simplification of the balance intercept problem},
-  pdfauthor={Boyi Guo, Jacqueline Rudolph},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \makeatletter
@@ -86,6 +78,14 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Lean on your statistics: The generalization and simplification of the balance intercept problem},
+  pdfauthor={Boyi Guo, Jacqueline Rudolph},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{Lean on your statistics: The generalization and simplification of
 the balance intercept problem}
@@ -209,6 +209,49 @@ mgf of multinomial distribution or Monte Carlo approach to calculate
 xxx. When statistical interaction exists, one can simply treat it as an
 special case of multi-level categorical variable by enlist all possible
 combinations and derive the corresponding risk ratios.
+
+To demonstrate the closed-form equation we provide works, we conduct a
+simulation studies. The simulation study is motivated by Robertson,
+Steingrimsson, and Dahabreh (2021). The simulation follows a log-normal
+model with two independent variables, \(X_1\) serving as the exposure
+and \(X_2\) as the covariate. We assume our exposure \(X_1\) is a
+three-level categorical variable with unbalanced group size, with the
+probability of each level 0.5, 0.35, 0.15. We examine difference
+distributions of the covariate \(X_2\), including a bernoulli
+distribution with probability 0.8, a continuous uniform distribution
+bounded between -1 and 3, a standard normal distribution and a gamma
+distribution with shape 1 and rate 1.5. We also examine different
+magnitude of covariate coefficient \(\beta_2\) ranging from 1 to 3 with
+0.5 increments, while fixing the coefficients \(\beta_1\) for the
+exposure \(X_1\) at 0.2, -0.2. The target marginal expectation consider
+a sequence of valules, from 0.1 to 0.5 with 0.1 increments. For each
+combination of these parameters, we use the equation xx to calculate the
+balance intercept and simulate a dataset that consists of 10,000
+observations. We calculate the deviation of the observed mean from the
+target mean, referred to as bias. The process iterates 10,000 times to
+derive the Monte Carlo standard error. The results (Figure yy) shows the
+close form equation produce accurate balance intercept.
+
+While we were conducting the simulation study, we observed some other
+numeric problems that we would like to highlight here. When the
+simulated outcome is binary and the link function is not bounded, it is
+possible to produce an dataset that not possible to control the marginal
+probability if following the previous described process. For example, if
+we run the previously described simulation study with a log function
+that is lower bounded by 0 but not upper bounded. Following the same
+described process would produce a dataset that underestimate the
+marginal probability. (See supporting information Figure xxx). In this
+case, we advise people to invert the coding of reference level and
+modify the coefficients accordingly by inverting the coefficients for
+binary exposures. Hence, this is possible to bound differently.
+
+Other tricks exists. For example, we can leverage different coding
+schemes to simply the calculation. For example, when the study is
+balance across exposure, we can set the marginal mean to be the
+intercept following the definition of intercept in effect coding. When
+the study is not balanced across exposure, we need to adjust the
+weighting of group sizes and lever weighted effect coding. Similarly,
+the marginal mean would be the intercept.
 
 In this report, we provide a statistics perspective to the balance
 intercept problem. Specifically, we clarify the simulation procedure
