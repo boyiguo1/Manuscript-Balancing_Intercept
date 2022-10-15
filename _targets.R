@@ -23,8 +23,21 @@ n_it <- 10
 
 
 sim_param <-  tidyr::expand_grid(
-  # marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,0.80,0.90),
+  # marg_target_long = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,0.80, 0.90),
   marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50),
+  # marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,0.80, 0.90),
+  beta_1 = list(c(0.2,-0.2)),
+  beta_2 = log(seq(from = 1, to = 3, by = 0.5)),
+  X2_dist = c("binary",
+              "normal",
+              "uniform",
+              "gamma"),
+)
+
+sim_param_norm <-  tidyr::expand_grid(
+  # marg_target_long = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,0.80, 0.90),
+  # marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50),
+  marg_target = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70,0.80, 0.90),
   beta_1 = list(c(0.2,-0.2)),
   beta_2 = log(seq(from = 1, to = 3, by = 0.5)),
   X2_dist = c("binary",
@@ -53,7 +66,7 @@ sim_norm_tar <- tarchetypes::tar_map_rep(
                       beta_1 = beta_1,
                       beta_2 = beta_2,
                       X2_dist = X2_dist),
-  values = sim_param,
+  values = sim_param_norm,
   # names = tidyselect::any_of("scenario"),
   batches = 1,
   reps = n_it
@@ -70,6 +83,7 @@ list(
     sim_sum,
     simulations %>%
       group_by(tar_group) %>%
+
       summarize(
         X2_dist = first(X2_dist),
         beta_2 = first(beta_2),
@@ -104,10 +118,10 @@ list(
      sim_sum %>% plot_sim()
   ),
 
-  # tar_target(
-  #   sim_plots_norm,
-  #   sim_sum_norm %>% plot_sim()
-  # ),
+  tar_target(
+    sim_plots_norm,
+    sim_sum_norm %>% plot_sim()
+  ),
 
 
   tar_target(
@@ -117,12 +131,12 @@ list(
                 common.legend = TRUE, legend = "bottom")
   ),
 
-  # tar_target(
-  #   sim_grid_norm,
-  #   sim_plots_norm %>%
-  #     ggarrange(plotlist = ., nrow = 2, ncol = 2,
-  #               common.legend = TRUE, legend = "bottom")
-  # ),
+  tar_target(
+    sim_grid_norm,
+    sim_plots_norm %>%
+      ggarrange(plotlist = ., nrow = 2, ncol = 2,
+                common.legend = TRUE, legend = "bottom")
+  ),
 
   # Manuscript --------------------------------------------------------------
   tar_files(
