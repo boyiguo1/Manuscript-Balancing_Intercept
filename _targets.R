@@ -7,7 +7,6 @@ tar_option_set(
   packages = c("rticles", "rmarkdown", "knitr",
                "tidyverse", "ggplot2", "ggpubr"), # packages that your targets need to run
   format = "rds" # default storage format
-  # Set other options as needed.
 )
 
 # Load the R scripts with your custom functions:
