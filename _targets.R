@@ -17,8 +17,7 @@ for (file in list.files("R", full.names = TRUE)) source(file)
 # Simulation Parameter
 n_total <- 1e8
 n <- 1e4
-# n_it <- n_total/n
-n_it <- 10
+n_it <- n_total/n
 
 
 sim_param <-  tidyr::expand_grid(
