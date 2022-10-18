@@ -21,11 +21,14 @@ plot_sim <- function(dat){
       ggplot(.dat, aes(x = marg_target, y = bias, group = beta_2, color = rr)) +
         geom_point() +
         # geom_errorbar(aes(ymin = bias_mean - bias_sd, ymax = bias_mean + bias_sd)) +
-        geom_errorbar(aes(ymin = bias - MC_se, ymax = bias + MC_se), width = 0.01) +
+        # geom_errorbar(aes(ymin = bias - MC_se, ymax = bias + MC_se), width = 0.01) +
         geom_line() +
         scale_y_continuous(limits = c(-0.1, 0.1)) +
+        scale_color_discrete(name = "Risk Ratio") +
         theme_minimal() +
-        ggtitle(.group) +
-        theme(plot.title = element_text(hjust = 0.5))
+        ggtitle(str_to_title(.group)) +
+        theme(plot.title = element_text(hjust = 0.5)) +
+        ylab("Bias") +
+        xlab("Target Mean")
     })
 }
