@@ -48,9 +48,9 @@ sim_study <- function(n, marg_target,
   return(
     data.frame(
       # exp_prob = marg_target,
-      obs_prob = mean(y, na.rm = TRUE),
-      missing = sum(is.na(y)),
-      obs_prob_cap = mean(y_cap, na.rm = TRUE)
+      obs_prob = mean(y_cap, na.rm = TRUE),     # Capped Version
+      # obs_prob = mean(y, na.rm = TRUE),       # Non-capped Version
+      missing = sum(is.na(y))
     )
   )
 }
