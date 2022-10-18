@@ -136,6 +136,17 @@ list(
                 common.legend = TRUE, legend = "bottom")
   ),
 
+  tar_target(
+    save_plot_sim_grid,
+    ggsave("Manuscript/sim_grid.pdf", sim_grid)
+  ),
+
+    tar_target(
+      save_plot_sim_grid_norm,
+      ggsave("Manuscript/sim_grid_norm.pdf", sim_grid_norm)
+    ),
+
+
   # Manuscript --------------------------------------------------------------
   # tar_files(
   #   name = manu_files,
