@@ -88,7 +88,7 @@ list(
         marg_target = first(marg_target),
         mean_prob = mean(obs_prob),
         MC_se = sd(obs_prob),
-        mean_prob_cap = mean(obs_prob_cap),
+       # mean_prob_cap = mean(obs_prob_cap),
         missing = mean(missing)
         ) %>%
       arrange(X2_dist, beta_2, marg_target)
