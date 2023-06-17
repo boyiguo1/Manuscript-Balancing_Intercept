@@ -1,6 +1,6 @@
 ---
 title: "Supporting Information"
-subtitle: "Statistical thinking in the simulation design: a continuing conversation on the balancing intercept problem"
+subtitle: "Statistical thinking in simulation design: a continuing conversation on the balancing intercept problem"
 author: "Boyi Guo, Linzi Li, Jacqueline Rudolph"
 output: pdf_document
 ---
@@ -69,4 +69,4 @@ closed-form solution of the balance intercept. Hence, it would be
 preferred to use the numeric solution.
 
 ### Supplementary Figure 1
-![Unbound link functions for bounded outcomes can be diffcult to control the marginal mean](sim_grid.pdf){ width=80% } 
+![**Unbound link functions for bounded outcomes can be diffcult to control the marginal mean using a closed-form solution**: The bias, defined as the empirical mean of the simulated outcome minus the targeted marginal mean of the outcome, holds at 0 for log-binoimal data generating models of four different risk ratio magnitude of the covaraites and four different distribution for the covariates, including (**A**) a Bernoulli distribution with probability 0.8, (**B**) a gamma distribution with shape 1 and rate 1.5, (**C**) a standard normal distribution, and (**D**) a continuous uniform distribution bounded between -1 and 3.](sim_grid-label.pdf){ width=80% } 
